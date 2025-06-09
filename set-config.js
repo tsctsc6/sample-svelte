@@ -4,5 +4,10 @@ const config = JSON.parse(readFileSync('src-tauri/tauri.conf.json'));
 config.identifier = "com.tsctsc6.sample-svelte";
 config.build.frontendDist = "../dist";
 config.bundle.targets = ["msi"];
+
+if (config.wix === undefined)
+{
+    config.wix = {};
+}
 config.wix.upgradeCode = "833ad97c-91d0-47cb-83b2-2e71181c0584";
 writeFileSync('src-tauri/tauri.conf.json', JSON.stringify(config, null, 2));
