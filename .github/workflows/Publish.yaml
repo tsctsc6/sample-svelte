@@ -23,6 +23,10 @@ jobs:
     - name: Setup rust
       uses: dtolnay/rust-toolchain@stable
 
+    - name: Install x86_64-pc-windows-msvc toolchain
+      run: |
+        rustup target add x86_64-pc-windows-msvc
+    
     - name: Setup Tauri
       run: |
         npm install
