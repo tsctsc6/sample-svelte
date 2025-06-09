@@ -24,6 +24,11 @@ jobs:
         npm install
         npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
 
+    - name: Create .env.loacl
+      run: |
+        Set-Content -Path .env.loacl -Value "VITE_Mobile_HOST = 0.0.0.0"
+        Add-Content -Path .env.loacl -Value "VITE_PORT = 5173"
+
     - name: Set Identifier
       run: |
         node set-config.js
