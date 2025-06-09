@@ -37,7 +37,7 @@ jobs:
         Set-Content -Path .env.loacl -Value "VITE_Mobile_HOST = 0.0.0.0"
         Add-Content -Path .env.loacl -Value "VITE_PORT = 5173"
 
-    - name: Set Identifier
+    - name: Set Config
       run: |
         node set-config.js
         node set-config.msi.js
