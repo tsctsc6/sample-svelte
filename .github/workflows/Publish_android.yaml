@@ -37,6 +37,7 @@ jobs:
       uses: android-actions/setup-android@v3
     
     - name: Setup Android NDK
+      id: setup-ndk
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r26d
@@ -47,6 +48,8 @@ jobs:
         npm install
         npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
         npx tauri android init
+      env:
+        NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     - name: Create .env.loacl
       run: |
