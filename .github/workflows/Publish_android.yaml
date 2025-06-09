@@ -46,7 +46,7 @@ jobs:
       with:
         name: tauri.conf.json
         path: ./src-tauri/tauri.conf.json
-        if-no-files-found: error  
+        if-no-files-found: error
 
     - name: Build
       run: |
