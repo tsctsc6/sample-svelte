@@ -24,6 +24,13 @@ jobs:
         npm install
         npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
 
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifacts
+        path: ./src-tauri/tauri.conf.json
+        if-no-files-found: error
+
     - name: Create .env.loacl
       run: |
         Set-Content -Path .env.loacl -Value "VITE_Mobile_HOST = 0.0.0.0"
