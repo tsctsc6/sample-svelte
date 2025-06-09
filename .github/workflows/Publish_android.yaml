@@ -47,9 +47,6 @@ jobs:
       run: |
         npm install
         npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
-        npx tauri android init
-      env:
-        NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     - name: Create .env.loacl
       run: |
@@ -66,6 +63,12 @@ jobs:
         name: tauri.conf.json
         path: ./src-tauri/tauri.conf.json
         if-no-files-found: error
+
+    - name: Setup Tauri Android
+      run: |
+        npx tauri android init
+      env:
+        NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     - name: Build
       run: |
