@@ -24,6 +24,15 @@ jobs:
         npm install
         npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
 
+    - name: Set Identifier
+      run: |
+        node <<EOF
+        const fs = require('fs');
+        const config = JSON.parse(fs.readFileSync('src-tauri/tauri.conf.json'));
+        config.identifier = "com.tsctsc6.sample-svelte";
+        fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
+        EOF
+
     - name: Build
       run: |
         npx tauri build --target x86_64-pc-windows-msvc
