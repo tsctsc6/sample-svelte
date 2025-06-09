@@ -26,7 +26,21 @@ jobs:
     - name: Install x86_64-pc-windows-msvc toolchain
       run: |
         rustup target add x86_64-pc-windows-msvc
+
+    - name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
     
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r26d
+        link-to-sdk: true
+
     - name: Setup Tauri
       run: |
         npm install
@@ -50,11 +64,11 @@ jobs:
 
     - name: Build
       run: |
-        npx tauri build --target x86_64-pc-windows-msvc
+        npx tauri android build
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: bundle
-        path: ./src-tauri/target/x86_64-pc-windows-msvc/release/bundle
+        path: ./src-tauri/gen/android/app/build/outputs/
         if-no-files-found: error
