@@ -1,0 +1,60 @@
+name: Publish Android
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.16.0'
+
+    - name: Setup rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Install x86_64-pc-windows-msvc toolchain
+      run: |
+        rustup target add x86_64-pc-windows-msvc
+    
+    - name: Setup Tauri
+      run: |
+        npm install
+        npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
+
+    - name: Create .env.loacl
+      run: |
+        Set-Content -Path .env.loacl -Value "VITE_Mobile_HOST = 0.0.0.0"
+        Add-Content -Path .env.loacl -Value "VITE_PORT = 5173"
+
+    - name: Set Config
+      run: |
+        node set-config.js
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: tauri.conf.json
+        path: ./src-tauri/tauri.conf.json
+        if-no-files-found: error  
+
+    - name: Build
+      run: |
+        npx tauri build --target x86_64-pc-windows-msvc
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bundle
+        path: ./src-tauri/target/x86_64-pc-windows-msvc/release/bundle
+        if-no-files-found: error
