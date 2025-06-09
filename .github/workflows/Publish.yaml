@@ -3,9 +3,6 @@ name: Publish win-x64
 on:
   workflow_dispatch:
 
-env:
-  DOTNET_VERSION: 8.0.x
-
 jobs:
   build:
     runs-on: windows-latest
@@ -25,7 +22,7 @@ jobs:
     - name: Setup Tauri
       run: |
         npm install
-        npx tauri init -A sample-svelte -W sample-svelte -P 127.0.0.1:5173
+        npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
 
     - name: Build
       run: |
