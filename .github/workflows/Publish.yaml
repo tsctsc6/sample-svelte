@@ -41,5 +41,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: artifacts
-        path: ./
+        path: ./src-tauri
         if-no-files-found: error
