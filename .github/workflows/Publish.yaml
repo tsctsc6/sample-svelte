@@ -26,12 +26,7 @@ jobs:
 
     - name: Set Identifier
       run: |
-        node <<EOF
-        const fs = require('fs');
-        const config = JSON.parse(fs.readFileSync('src-tauri/tauri.conf.json'));
-        config.identifier = "com.tsctsc6.sample-svelte";
-        fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
-        EOF
+        node set-config.js
 
     - name: Build
       run: |
