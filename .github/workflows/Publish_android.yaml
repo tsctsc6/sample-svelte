@@ -46,6 +46,7 @@ jobs:
       run: |
         npm install
         npx tauri init -A sample-svelte -W sample-svelte -P http://127.0.0.1:5173
+        npx tauri android init
 
     - name: Create .env.loacl
       run: |
