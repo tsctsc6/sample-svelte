@@ -70,11 +70,26 @@ jobs:
       env:
         NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
+    - name: Get Keystroe
+      run: |
+        [System.IO.File]::WriteAllBytes("${{ github.workspace }}/.jks", [Convert]::FromBase64String("${{ secrets.TSCTSC6_KEYSTORE_BASE64 }}"))
+
+    - name: Gen key.properties Files
+      run: |
+        Set-Content -Path ./src-tauri/gen/android/key.properties -Value "storePassword=${{ secrets.ANDROID_SIGNING_PASSWORD }}"
+        Add-Content -Path ./src-tauri/gen/android/key.properties -Value "keyPassword=${{ secrets.ANDROID_SIGNING_PASSWORD }}"
+        Add-Content -Path ./src-tauri/gen/android/key.properties -Value "keyAlias=tsctsc6"
+        Add-Content -Path ./src-tauri/gen/android/key.properties -Value "storeFile=${{ github.workspace }}/.jks"
+    
     - name: Build
       run: |
         npx tauri android build
       env:
         NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+        SIGNING_KEY_FILE: ${{ github.workspace }}/.jks
+        SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
+        SIGNING_KEY_ALIAS: tsctsc6
+        SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
