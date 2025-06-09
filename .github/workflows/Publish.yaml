@@ -27,7 +27,7 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: artifacts
+        name: tauri.conf.json
         path: ./src-tauri/tauri.conf.json
         if-no-files-found: error
 
@@ -47,6 +47,6 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: artifacts
+        name: bundle
         path: ./src-tauri/target/x86_64-pc-windows-msvc/release/bundle
         if-no-files-found: error
