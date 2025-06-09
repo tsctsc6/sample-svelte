@@ -1,0 +1,39 @@
+name: Publish win-x64
+
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: 8.0.x
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.16.0'
+
+    - name: Setup rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Setup Tauri
+      run: |
+        npm install
+        npx tauri init -A sample-svelte -W sample-svelte -P 127.0.0.1:5173
+
+    - name: Build
+      run: |
+        npx tauri build --target x86_64-pc-windows-msvc
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifacts
+        path: ./
+        if-no-files-found: error
