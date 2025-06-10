@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 
-const config = JSON.parse(readFileSync('src-tauri/tauri.conf.json'));
+const filePath = 'src-tauri/tauri.conf.json';
+const config = JSON.parse(readFileSync(filePath));
 
 // basic
 config.identifier = "com.tsctsc6.sample-svelte";
@@ -18,4 +19,4 @@ if (config.bundle.windows.wix === undefined)
 }
 config.bundle.windows.wix.upgradeCode = "833ad97c-91d0-47cb-83b2-2e71181c0585";
 
-writeFileSync('src-tauri/tauri.conf.json', JSON.stringify(config, null, 2));
+writeFileSync(filePath, JSON.stringify(config, null, 2));
