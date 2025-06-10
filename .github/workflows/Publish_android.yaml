@@ -87,7 +87,7 @@ jobs:
 
     - name: Build
       run: |
-        npx tauri android build
+        npx tauri android build --target aarch64 --apk
       env:
         NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
     
