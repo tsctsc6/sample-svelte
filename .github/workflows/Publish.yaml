@@ -39,8 +39,7 @@ jobs:
 
     - name: Set Config
       run: |
-        node ./set-config/set-config.js
-        node ./set-config/set-config.msi.js
+        node ./set-config/set-tauri-config.js
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
