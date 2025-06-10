@@ -90,10 +90,6 @@ jobs:
         npx tauri android build
       env:
         NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-        SIGNING_KEY_FILE: ${{ github.workspace }}/.jks
-        SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
-        SIGNING_KEY_ALIAS: tsctsc6
-        SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
