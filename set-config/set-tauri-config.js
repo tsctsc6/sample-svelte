@@ -8,10 +8,14 @@ config.build.frontendDist = "../dist";
 
 // windows-msi
 config.bundle.targets = ["msi"];
-if(config.app.windows.wix === undefined)
+if(config.bundle.windows === undefined)
 {
-    config.app.windows.wix = {};
+    config.bundle.windows = {};
 }
-config.app.windows.wix.upgradeCode = "833ad97c-91d0-47cb-83b2-2e71181c0584";
+if (config.bundle.windows.wix === undefined)
+{
+    config.bundle.windows.wix = {};
+}
+config.bundle.windows.wix.upgradeCode = "833ad97c-91d0-47cb-83b2-2e71181c0585";
 
 writeFileSync('src-tauri/tauri.conf.json', JSON.stringify(config, null, 2));
