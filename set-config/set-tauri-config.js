@@ -2,6 +2,11 @@ import { readFileSync, writeFileSync } from 'fs';
 
 const config = JSON.parse(readFileSync('src-tauri/tauri.conf.json'));
 
+// basic
+config.identifier = "com.tsctsc6.sample-svelte";
+config.build.frontendDist = "../dist";
+
+// windows-msi
 config.bundle.targets = ["msi"];
 if(config.app.windows.wix === undefined)
 {
