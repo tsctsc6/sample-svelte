@@ -31,6 +31,8 @@ content = content.substring(0, insertPoint) + signingConfigs + content.substring
 var insertPoint = findInsertPoint('getByName("release") {\r\n', content, 'after');
 content = content.substring(0, insertPoint) + '            signingConfig = signingConfigs.getByName("release")\r\n' + content.substring(insertPoint);
 
+content = content.replace('jvmTarget = "1.8"', 'jvmTarget = "21"');
+
 writeFileSync(filePath, content);
 
 
