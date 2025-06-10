@@ -72,14 +72,14 @@ jobs:
 
     - name: Get Keystroe
       run: |
-        [System.IO.File]::WriteAllBytes("${{ github.workspace }}/.jks", [Convert]::FromBase64String("${{ secrets.TSCTSC6_KEYSTORE_BASE64 }}"))
+        [System.IO.File]::WriteAllBytes("./src-tauri/gen/android/app/.jks", [Convert]::FromBase64String("${{ secrets.TSCTSC6_KEYSTORE_BASE64 }}"))
 
     - name: Gen key.properties Files
       run: |
         Set-Content -Path ./src-tauri/gen/android/key.properties -Value "storePassword=${{ secrets.ANDROID_SIGNING_PASSWORD }}"
         Add-Content -Path ./src-tauri/gen/android/key.properties -Value "keyPassword=${{ secrets.ANDROID_SIGNING_PASSWORD }}"
         Add-Content -Path ./src-tauri/gen/android/key.properties -Value "keyAlias=tsctsc6"
-        Add-Content -Path ./src-tauri/gen/android/key.properties -Value "storeFile=${{ github.workspace }}/.jks"
+        Add-Content -Path ./src-tauri/gen/android/key.properties -Value "storeFile=.jks"
 
     - name: Set Android Sign Config
       run: |
