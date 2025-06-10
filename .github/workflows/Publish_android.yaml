@@ -80,7 +80,11 @@ jobs:
         Add-Content -Path ./src-tauri/gen/android/key.properties -Value "keyPassword=${{ secrets.ANDROID_SIGNING_PASSWORD }}"
         Add-Content -Path ./src-tauri/gen/android/key.properties -Value "keyAlias=tsctsc6"
         Add-Content -Path ./src-tauri/gen/android/key.properties -Value "storeFile=${{ github.workspace }}/.jks"
-    
+
+    - name: Set Android Sign Config
+      run: |
+        node ./set-config/set-android-sign-config.js
+
     - name: Build
       run: |
         npx tauri android build
